@@ -1,20 +1,9 @@
-#!/bin/bash
-
-# อัปเดตแพ็กเกจ
 pkg update -y && pkg upgrade -y
+pkg install git build-essential curl openssl-tool -y
+pkg install clang make automake autoconf -y
+pkg install binutils -y
 
-# ติดตั้ง dependencies
-pkg install -y git build-essential curl openssl-tool
-pkg install -y clang make automake autoconf
-pkg install -y binutils
-
-# โคลน repo และเปลี่ยนไปยัง branch ARM
-git clone https://github.com/NGSStudio/ccminer.git
-cd ccminer || { echo "ไม่สามารถเข้าโฟลเดอร์ ccminer"; exit 1; }
-
-# ให้สิทธิ์ไฟล์สคริปต์
+git clone --single-branch -b ARM https://github.com/monkins1010/ccminer.git
+cd ccminer
 chmod +x build.sh autogen.sh configure.sh
-
-# รัน build
 ./build.sh
-
